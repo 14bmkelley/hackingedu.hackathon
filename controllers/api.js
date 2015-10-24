@@ -23,14 +23,18 @@ module.exports = function(router, sessionManager, dbModels) {
     if (typeof password !== "string" || password === "") {
       response.end(JSON.stringify({ "success": false }));
     }
-
-    var user = new dbModels.User({
+    
+    var newUser = {
       "firstname": firstname,
       "lastname": lastname,
       "username": username,
       "password": password,
       "posts": posts
-    }).register();
+    };
+    
+    new dbModels.User(newUser).save();
+    
+    return newUser;
     
   });
   
@@ -58,7 +62,7 @@ module.exports = function(router, sessionManager, dbModels) {
       response.cookie("sid", sid, { maxAge: 10 * 60 * 60 * 24 });
       response.end(JSON.stringify({ "success": true }));
     }
-
+    
     response.end(JSON.stringify({ "success": false }));
     
   });

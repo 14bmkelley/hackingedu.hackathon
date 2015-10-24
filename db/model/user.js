@@ -8,15 +8,11 @@ module.exports = function(Schema) {
     "posts": [Schema.ObjectId]
   });
 
-  userSchema.methods.register = function() {
-    this.model("User").save();
-  }
-
   userSchema.statics.login = function(username, password) {
-    this.model("User").findOne({
+    this.find({
       "username": username,
       "password": password
-    }, function(error, user) {
+    }).exec(function(error, user) {
       if (error) {
         console.log(error);
         return null;

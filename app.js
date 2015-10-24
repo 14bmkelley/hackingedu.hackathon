@@ -6,6 +6,11 @@ var cookieParser = require("cookie-parser");
 var sync = require("synchronize");
 var mongoose = require("mongoose");
 
+// Allow synchronous function calls
+app.use(function(request, response, callback) {
+  sync.fiber(callback);
+});
+
 // Custom session support
 var sessionManager = require(__dirname + "/util/SessionManager");
 
@@ -17,9 +22,6 @@ app.set("port", process.argv[2] || 8080);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ "extended": false }));
 app.use(cookieParser());
-app.use(function(request, response, callback) {
-  sync.fiber(callback);
-});
 
 // Database settings
 mongoose.connect("mongodb://localhost/saltyrant");
