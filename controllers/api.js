@@ -2,7 +2,35 @@ module.exports = function(router, sessionManager, dbModels) {
   
   router.post("/register", function(request, response) {
     
+    var firstname = request.body.firstname;
+    var lastname = request.body.lastname;
+    var username = request.body.username;
+    var password = request.body.password;
+    var posts = [];
+
+    if (typeof firstname !== "string" || firstname === "") {
+      response.end(JSON.stringify({ "success": false }));
+    }
     
+    if (typeof lastname !== "string" || lastname === "") {
+      response.end(JSON.stringify({ "success": false }));
+    }
+
+    if (typeof username !== "string" || username === "") {
+      response.end(JSON.stringify({ "success": false }));
+    }
+
+    if (typeof password !== "string" || password === "") {
+      response.end(JSON.stringify({ "success": false });
+    }
+
+    var user = new dbModels.User({
+      "firstname": firstname,
+      "lastname": lastname,
+      "username": username,
+      "password": password,
+      "posts": posts
+    }).register();
     
   });
   
