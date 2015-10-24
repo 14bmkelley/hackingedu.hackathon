@@ -3,11 +3,26 @@
     src: url('fonts/PoiretOne-Regular.ttf');
 }
 
+@font-face {
+    font-family: Stainy;
+    src: url('fonts/Stainy_PersonalUseOnly.ttf');
+}
+
 body {
     font-family: 'Railway';
 }
+
 .navbar {
   margin-bottom: 0px;
+  font-family: 'Poiret';
+}
+
+.navbar-brand {
+    font-family: 'Stainy';
+}
+
+.name {
+    display: inline;
 }
 
 .vertical-space-5 {
