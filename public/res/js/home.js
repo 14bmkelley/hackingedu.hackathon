@@ -4,7 +4,7 @@ $(document).ready(function() {
   centerLanding();
   
   // Focus on the first text input when page loads
-  $("input[type='text']").focus();
+  $("input").first().focus();
   
   // Center landing vertically when page resizes
   $(window).resize(centerLanding);

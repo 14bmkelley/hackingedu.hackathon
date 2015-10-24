@@ -17,8 +17,13 @@ body {
   font-family: 'Poiret';
 }
 
+.navbar a {
+  font-size: 24px;
+}
+
 .navbar-brand {
     font-family: 'Stainy';
+    margin-right: 10px;
 }
 
 .name {
