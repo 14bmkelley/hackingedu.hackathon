@@ -1,0 +1,29 @@
+{
+  "name": "hackingedu.hackathon",
+  "version": "1.0.0",
+  "description": "A web app built at the HackingEDU Hackathon",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server/http.js",
+    "test": "node server/http.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/14bmkelley/hackingedu.hackathon.git"
+  },
+  "author": {
+    {
+      "name": "Brandon M. Kelley",
+      "email": "14bmkelley@gmail.com"
+    },
+    {
+      "name": "Garrett Chan",
+      "email": "ggchan0@calpoly.edu"
+    }
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/14bmkelley/hackingedu.hackathon/issues"
+  },
+  "homepage": "https://github.com/14bmkelley/hackingedu.hackathon"
+}
