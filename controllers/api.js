@@ -2,6 +2,8 @@ module.exports = function(router, sessionManager, dbModels) {
   
   router.post("/register", function(request, response) {
     
+    
+    
   });
   
   router.post("/login", function(request, response) {
@@ -26,10 +28,10 @@ module.exports = function(router, sessionManager, dbModels) {
     if (user !== null) {
       var sid = sessionManager.addSession(user);
       response.cookie("sid", sid, { maxAge: 10 * 60 * 60 * 24 });
-      response.end({ "success": true });
-    } else {
-      response.end({ "success": false });
+      response.end(JSON.stringify({ "success": true }));
     }
+
+    response.end(JSON.stringify({ "success": false }));
     
   });
   
