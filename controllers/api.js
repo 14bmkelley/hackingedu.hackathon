@@ -21,7 +21,7 @@ module.exports = function(router, sessionManager, dbModels) {
     }
 
     if (typeof password !== "string" || password === "") {
-      response.end(JSON.stringify({ "success": false });
+      response.end(JSON.stringify({ "success": false }));
     }
 
     var user = new dbModels.User({

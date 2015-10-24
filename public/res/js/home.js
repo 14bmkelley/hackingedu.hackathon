@@ -46,7 +46,40 @@ $(document).ready(function() {
   }
   
   $("#register").click(function(event) {
-    // Register
+    
+    var firstname = $("#first-name").val();
+    var lastname = $("#last-name").val();
+    var password1 = $("#first-password").val();
+    var password2 = $("#repeat-password").val();
+    var email = $("#email").val();
+    
+    if (password1 !== password2) {
+      return;
+    }
+
+    var data = {
+      "firstname": firstname,
+      "lastname": lastname,
+      "password": password1,
+      "email": email
+    };
+
+    $.ajax("/register", {
+      "method": "POST",
+      "contentType": "application/json",
+      "data": JSON.stringify(data),
+      "success": function(data, state, jqxhr) {
+        if (JSON.parse(data)["success"]) {
+          window.location.reload();
+        }
+        $("input").val("");
+        $("input").first().focus();
+      },
+      "error": function(jqxhr, state, error) {
+        console.log(error);
+      }
+    });
+    
   });
   
   function login() {
@@ -59,7 +92,7 @@ $(document).ready(function() {
       "password": password
     };
     
-    $.ajax("/", {
+    $.ajax("/login", {
       "method": "POST",
       "contentType": "application/json",
       "data": JSON.stringify(data),
