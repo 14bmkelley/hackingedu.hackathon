@@ -4,6 +4,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var sync = require("synchronize");
+var mongoose = require("mongoose");
 
 // Custom session support
 var sessionManager = require(__dirname + "/util/SessionManager");
@@ -20,11 +21,20 @@ app.use(function(request, response, callback) {
   sync.fiber(callback);
 });
 
+// Database settings
+mongoose.connect("mongodb://localhost/saltyrant");
+var userModelLocation = __dirname + "/db/model/user";
+var userSchema = require(userModelLocation)(mongoose.Schema);
+
+var models = {
+  "User": mongoose.model("User", userSchema)
+};
+
 // Route known urls
 var renderLocation = __dirname + "/controllers/render";
 var apiLocation = __dirname + "/controllers/api";
-var renderRouter = require(renderLocation)(express.Router(), sessionManager);
-var apiRouter = require(apiLocation)(express.Router(), sessionManager);
+var renderRouter = require(renderLocation)(express.Router(), sessionManager, models);
+var apiRouter = require(apiLocation)(express.Router(), sessionManager, models);
 
 app.use("/", renderRouter);
 app.use("/", apiRouter);

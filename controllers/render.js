@@ -1,4 +1,4 @@
-module.exports = function(router, sessionManager) {
+module.exports = function(router, sessionManager, dbModels) {
   
   router.get("/", function(request, response) {
     response.render("home", {} );

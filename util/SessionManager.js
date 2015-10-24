@@ -6,11 +6,11 @@ var SessionManager = function() {
   var sessions = [];
   
   // Add a session
-  this.addSession = function(username) {
+  this.addSession = function(user) {
    
     // Create session
     var session = {
-      "username": username,
+      "user": user,
       "sid": randomstring({ "length": 16 })
     };
 
@@ -44,7 +44,7 @@ var SessionManager = function() {
     for (var i = 0; i < sessions.length; i++) {
       var found = false;
       for (var j = i + 1; j < sessions.length; j++) {
-        if (sessions[i].username === sessions[j].username) {
+        if (sessions[i].user.username === sessions[j].user.username) {
           found = true;
         }
       }
