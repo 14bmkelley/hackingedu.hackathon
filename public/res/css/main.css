@@ -1,3 +1,11 @@
+@font-face {
+    font-family: Poiret;
+    src: url('fonts/PoiretOne-Regular.ttf');
+}
+
+body {
+    font-family: 'Railway';
+}
 .navbar {
   margin-bottom: 0px;
 }
