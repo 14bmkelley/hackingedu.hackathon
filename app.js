@@ -3,8 +3,10 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
-var randomstring = require("random-string");
 var sync = require("synchronize");
+
+// Custom session support
+var sessionManager = require(__dirname + "/util/SessionManager");
 
 // App settings
 app.set("views", __dirname + "/views");
@@ -21,8 +23,8 @@ app.use(function(request, response, callback) {
 // Route known urls
 var renderLocation = __dirname + "/controllers/render";
 var apiLocation = __dirname + "/controllers/api";
-var renderRouter = require(renderLocation)(express.Router());
-var apiRouter = require(apiLocation)(express.Router());
+var renderRouter = require(renderLocation)(express.Router(), sessionManager);
+var apiRouter = require(apiLocation)(express.Router(), sessionManager);
 
 app.use("/", renderRouter);
 app.use("/", apiRouter);

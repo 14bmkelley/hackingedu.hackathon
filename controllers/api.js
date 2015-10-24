@@ -1,9 +1,17 @@
-module.exports = function(router) {
+module.exports = function(router, sessionManager) {
+  
+  router.post("/register", function(request, response) {
+    
+  });
   
   router.post("/login", function(request, response) {
-    // Login
+    
   });
-
+  
+  router.get("/logout", function(request, response) {
+    
+  });
+  
   return router;
   
 };
