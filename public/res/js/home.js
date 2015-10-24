@@ -82,6 +82,7 @@ $(document).ready(function() {
         $("#password").val(password);
         centerLanding();
         $("#register-full").css("display", "block");
+        $("input").first().focus();
       },
       "error": function(error) {
         console.log(error);

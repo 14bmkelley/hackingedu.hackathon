@@ -13,26 +13,26 @@ var SessionManager = function() {
       "user": user,
       "sid": randomstring({ "length": 16 })
     };
-
+    
     // Add session and clean up
     sessions.push(session);
     this.cleanSessions();
     return session.sid;
-
+    
   };
 
   // Authenticate a session
-  this.authenticateSession = function(sid) {
-    
+  this.authenticateSession = function(sid, callback) {
     // If a session is found, then it can be authenticated
-    for (session in sessions) {
-      if (session.sid === sid) {
-        return true;
+    for (var i = 0; i < sessions.length; i++) {
+      if (sessions[i].sid === sid) {
+        callback(sessions[i].user);
+        return;
       }
     }
-
+    
     // Otherwise, there is no session
-    return false;
+    callback(null);
 
   };
 

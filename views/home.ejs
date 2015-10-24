@@ -12,27 +12,45 @@
   <% include base/navbar %>
 
   <div class="container-fluid">
-    <div id="landing" class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-      <h3 class="text-center">Ready to rant? Register or login below.</h3>
-      <div class="vertical-space-10"></div>
-      <div class="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
-        <input id="username" type="text" class="form-control" placeholder="Username"/>
-        <div class="vertical-space-5"></div>
-        <input id="password" type="password" class="form-control" placeholder="Password"/>
-        <div class="vertical-space-15"></div>
-        <div class="btn-group btn-group-justified">
-          <div class="btn-group">
-            <button id="register" type="button" class="btn btn-success">Register</button>
-          </div>
-          <div class="btn-group">
-            <button id="login" type="button" class="btn btn-success">Login</button>
+    
+    <% if (user === null) { %>
+      <div id="landing" class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        <h3 class="text-center">Ready to rant? Register or login below.</h3>
+        <div class="vertical-space-10"></div>
+        <div class="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
+          <input id="username" type="text" class="form-control" placeholder="Username"/>
+          <div class="vertical-space-5"></div>
+          <input id="password" type="password" class="form-control" placeholder="Password"/>
+          <div class="vertical-space-15"></div>
+          <div class="btn-group btn-group-justified">
+            <div class="btn-group">
+              <button id="register" type="button" class="btn btn-success">Register</button>
+            </div>
+            <div class="btn-group">
+              <button id="login" type="button" class="btn btn-success">Login</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-      <button id="register-full" type="button" class="btn btn-success">Register</button>
-    <div>
+      <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+        <button id="register-full" type="button" class="btn btn-success">Register</button>
+      <div>
+
+    <% } else { %>
+      <div class="container">
+        <div id="content">
+          <h1 class="text-center">News Feed</h1>
+          <% if (posts !== null) { %>
+            <% for (var i = 0; i < posts.length; i++) { %>
+              <hr/>
+              <h4><%= posts[i].content %></h4>
+              <p>Posted by <%= posts[i].user %></p>
+            <% } %>
+          <% } %>
+        </div>
+      </div>
+      
+    <% } %>
   </div>
 
   <% include base/scripts %>

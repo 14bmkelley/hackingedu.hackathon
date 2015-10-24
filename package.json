@@ -33,6 +33,7 @@
     "express": "^4.13.3",
     "mongoose": "^4.2.2",
     "random-string": "^0.1.2",
-    "synchronize": "^0.9.14"
+    "synchronize": "^0.9.14",
+    "unix-timestamp": "^0.2.0"
   }
 }

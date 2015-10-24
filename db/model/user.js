@@ -8,17 +8,17 @@ module.exports = function(Schema) {
     "posts": [Schema.ObjectId]
   });
 
-  userSchema.statics.login = function(username, password) {
-    this.find()
-        .where("username", username)
-        .where("password", password)
-        .exec(function(error, user) {
+  userSchema.statics.login = function(username, password, callback) {
+    this.findOne({
+      "username": username,
+      "password": password
+    }).exec(function(error, data) {
       if (error) {
         console.log(error);
-        return null;
+        callback(null);
+      } else {
+        callback(data);
       }
-      console.log(user);
-      return user;
     });
   }
   

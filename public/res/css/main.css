@@ -8,8 +8,16 @@
     src: url('fonts/Stainy_PersonalUseOnly.ttf');
 }
 
+html {
+  background: #666666;
+}
+
 body {
-    font-family: 'Railway';
+  height: 100vh;
+  background: url('../img/home.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
 }
 
 .navbar {
@@ -21,13 +29,24 @@ body {
   font-size: 18px;
 }
 
+.navbar-header .active {
+  overflow: auto;
+  background: #000000;
+}
+
 .navbar-brand {
   font-size: 28px;
 }
 
-.navbar-brand {
-    font-family: 'Stainy';
-    margin-right: 15px;
+.navbar > .container .navbar-brand {
+  font-family: 'Stainy';
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-left: 0px;
+}
+
+.navbar-inverse > .container .active a {
+  color: #FFFFFF;
 }
 
 .name {
@@ -46,6 +65,16 @@ body {
   height: 15px;
 }
 
-#registration {
+#content {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  box-shadow: 0px 0px 10px black;
+}
+
+@media (max-width: 767px) {
+  
+  .navbar-header {
+    background: #000000;
+  }
 
 }

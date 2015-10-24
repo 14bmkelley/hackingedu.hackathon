@@ -3,13 +3,7 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
-var sync = require("synchronize");
 var mongoose = require("mongoose");
-
-// Allow synchronous function calls
-app.use(function(request, response, callback) {
-  sync.fiber(callback);
-});
 
 // Custom session support
 var sessionManager = require(__dirname + "/util/SessionManager");
@@ -44,7 +38,19 @@ app.use("/", express.static(__dirname + "/public"));
 
 // Route unknown urls
 app.use(function(request, response) {
-  response.render("error", {} );
+  if (request.cookies !== null) {
+    sessionManager.authenticateSession(request.cookies["sid"], function(authUser) {
+      response.render("error", {
+        "title": "home",
+        "user": authUser
+      });
+    });
+  } else {
+    response.render("error", {
+      "title": "home",
+      "user": null
+    });
+  }
 });
 
 // Export
