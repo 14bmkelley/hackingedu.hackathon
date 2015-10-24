@@ -2,6 +2,20 @@ module.exports = function(router, sessionManager, dbModels) {
   
   router.post("/register", function(request, response) {
     
+    if (!request.body.firstname && !request.body.lastname) {
+      
+      var username = request.body.username;
+      var password = request.body.password;
+      
+      response.render("register", {
+        "username": username,
+        "password": password
+      });
+      
+      return;
+      
+    }
+
     var firstname = request.body.firstname;
     var lastname = request.body.lastname;
     var username = request.body.username;
@@ -32,9 +46,13 @@ module.exports = function(router, sessionManager, dbModels) {
       "posts": posts
     };
     
-    new dbModels.User(newUser).save();
+    new dbModels.User(newUser).save(function(error) {
+      if (error) {
+        console.log(error);
+      }
+    });
     
-    return newUser;
+    response.end();
     
   });
   

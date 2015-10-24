@@ -9,6 +9,9 @@ $(document).ready(function() {
   // Center landing vertically when page resizes
   $(window).resize(centerLanding);
   
+  // Hide the hacky register button
+  $("#register-full").css("display", "none");
+  
   // Login when login button is pressed
   $("#login").click(function(event) {
     login();
@@ -27,7 +30,7 @@ $(document).ready(function() {
       $("input[type='password']").focus();
     }
   });
-  
+
   // Center the landing title and inputs vertically
   function centerLanding() {
     
@@ -45,35 +48,78 @@ $(document).ready(function() {
 
   }
   
+  // Set register listener
   $("#register").click(function(event) {
     
+    var username = $("#username").val();
+    var password = $("#password").val();
+    var repeat = $("#repeat-password").val(); 
     var firstname = $("#first-name").val();
     var lastname = $("#last-name").val();
-    var password1 = $("#first-password").val();
-    var password2 = $("#repeat-password").val();
     var email = $("#email").val();
     
-    if (password1 !== password2) {
+    if (password !== repeat && repeat !== undefined) {
+      // Handle mess up
+      console.log("oops");
       return;
     }
-
+    
     var data = {
+      "username": username,
+      "password": password,
       "firstname": firstname,
       "lastname": lastname,
-      "password": password1,
       "email": email
     };
-
+    
     $.ajax("/register", {
       "method": "POST",
       "contentType": "application/json",
       "data": JSON.stringify(data),
       "success": function(data, state, jqxhr) {
-        if (JSON.parse(data)["success"]) {
-          window.location.reload();
-        }
-        $("input").val("");
-        $("input").first().focus();
+        $("#landing").html(data);
+        $("#username").val(username);
+        $("#password").val(password);
+        centerLanding();
+        $("#register-full").css("display", "block");
+      },
+      "error": function(error) {
+        console.log(error);
+      }
+    });
+    
+  });
+
+  // Set register listener
+  $("#register-full").click(function(event) {
+    
+    var username = $("#username").val();
+    var password = $("#password").val();
+    var repeat = $("#repeat-password").val(); 
+    var firstname = $("#first-name").val();
+    var lastname = $("#last-name").val();
+    var email = $("#email").val();
+    
+    if (password !== repeat && repeat !== undefined) {
+      // Handle mess up
+      console.log("oops");
+      return;
+    }
+    
+    var data = {
+      "username": username,
+      "password": password,
+      "firstname": firstname,
+      "lastname": lastname,
+      "email": email
+    };
+    
+    $.ajax("/register", {
+      "method": "POST",
+      "contentType": "application/json",
+      "data": JSON.stringify(data),
+      "success": function(data, state, jqxhr) {
+        window.location.pathname = "/";
       },
       "error": function(jqxhr, state, error) {
         console.log(error);

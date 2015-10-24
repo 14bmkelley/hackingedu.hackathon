@@ -9,10 +9,10 @@ module.exports = function(Schema) {
   });
 
   userSchema.statics.login = function(username, password) {
-    this.find({
-      "username": username,
-      "password": password
-    }).exec(function(error, user) {
+    this.find()
+        .where("username", username)
+        .where("password", password)
+        .exec(function(error, user) {
       if (error) {
         console.log(error);
         return null;
