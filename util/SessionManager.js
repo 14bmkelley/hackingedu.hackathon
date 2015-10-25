@@ -41,7 +41,7 @@ var SessionManager = function() {
   this.cleanSessions = function() {
     
     var newSessions = [];
-    console.log(sessions);
+
     for (var i = 0; i < sessions.length; i++) {
       var found = false;
       for (var j = i + 1; j < sessions.length; j++) {

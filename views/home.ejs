@@ -58,9 +58,21 @@
             <div class="vertical-space-15"></div>
             <% if (posts.length !== 0) { %>
               <% for (var i = 0; i < posts.length; i++) { %>
-                <hr/>
-                <h4><%= posts[i].content %></h4>
-                <p>Posted by <%= posts[i].user %></p>
+                <div class="post">
+                  <div class="row">
+                    <hr/>
+                    <div class="col-sm-6 col-xs-12">
+                      <h3><%= posts[i].content %></h3>
+                      <p>Posted by <%= posts[i].user %></p>
+                    </div>
+                    <div id="dislike" class="col-sm-6 col-xs-12">
+                      <button class="btn btn-success" type="button">
+                        <img width="20px" src="/res/img/thumbs.png"/>
+                        <span class="badge">0</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               <% } %>
             <% } else { %>
               <p>You have no recent rants to view.</p>

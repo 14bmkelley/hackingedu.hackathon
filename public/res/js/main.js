@@ -9,7 +9,10 @@ $(document).ready(function() {
     var contentHeight = $("#content").outerHeight();
     var bodyHeight = $("body").outerHeight();
     if (navHeight + contentHeight < bodyHeight) {
-      $("#content").css("height", bodyHeight - navHeight + "px");
+      $("#content").css({
+        "height": bodyHeight - navHeight + "px",
+        "overflow-y": "scroll"
+      });
     }
   }
 

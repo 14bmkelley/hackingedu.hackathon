@@ -71,10 +71,48 @@ body {
   box-shadow: 0px 0px 10px black;
 }
 
+.post h3 {
+  margin-left: 10px;
+}
+
+.post p {
+  margin-left: 10px;
+}
+
+.post button {
+  margin-right: 10px;
+  float: right;
+}
+
+#dislike .active {
+  background: #008800;
+}
+
+#dislike:focus {
+  outline: none;
+}
+
 @media (max-width: 767px) {
   
   .navbar-header {
     background: #000000;
   }
 
-}
+  .post h3 {
+    text-align: center;
+  }
+
+  .post p {
+    text-align: center;
+  }
+
+  .post button {
+    margin: 0px;
+    float: none;
+  }
+
+  #dislike {
+    text-align: center;
+  }
+
+

@@ -51,7 +51,7 @@ module.exports = function(router, sessionManager, dbModels) {
     new dbModels.User(newUser).save();
     
     response.end();
-    
+
   });
   
   router.post("/login", function(request, response) {
@@ -92,11 +92,11 @@ module.exports = function(router, sessionManager, dbModels) {
     
     sessionManager.authenticateSession(request.cookies["sid"], function(user) {
       
-      var userId = user._id;
+      var username = user.username;
       var createdTime = time.now();
       
       var newPost = {
-        "user": userId,
+        "user": username,
         "content": rant,
         "downvotes": 0,
         "time": createdTime
@@ -104,7 +104,7 @@ module.exports = function(router, sessionManager, dbModels) {
       
       new dbModels.Post(newPost).save();
       response.end();
-      
+
     });
 
   });

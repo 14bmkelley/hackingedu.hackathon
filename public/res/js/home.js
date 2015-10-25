@@ -18,7 +18,7 @@ $(document).ready(function() {
   });
 
   // Login when enter is pressed in the password input
-  $("input").last().keypress(function(keyEvent) {
+  $("#password").keypress(function(keyEvent) {
     if (keyEvent.keyCode === 13) {
       login();
     }
@@ -27,7 +27,13 @@ $(document).ready(function() {
   // Catch accidental enter on username field
   $("input[type='text']").keypress(function(keyEvent) {
     if (keyEvent.keyCode === 13) {
-      $("input[type='password']").focus();
+      $("input[type='text']").next().focus();
+    }
+  });
+
+  $("#repeat-password").keypress(function(keyEvent) {
+    if (keyEvent.keyCode === 13) {
+      register();
     }
   });
 
@@ -40,6 +46,30 @@ $(document).ready(function() {
   $("#newrantsubmit").click(function(event) {
     newRant();
   });
+  
+  $(".post").click(function(event) {
+    var current = Number($(this).find("span").text());
+    if ($(this).find("button").hasClass("active")) {
+      $(this).find("span").text(current - 1);
+      $(this).find("button").removeClass("active");
+    } else {
+      $(this).find("span").text(current + 1);
+      $(this).find("button").addClass("active");
+    }
+  });
+
+  verticalAlignPostDislikes();
+  
+  function verticalAlignPostDislikes() {
+    $(".post").each(function(index, element) {
+      var containerHeight = $(this).innerHeight();
+      var buttonHeight = $(this).find("#dislike").outerHeight();
+      var newMargin = (containerHeight - buttonHeight) / 4;
+      $(this).find("#dislike").css({
+        "margin-top": newMargin + "px"
+      });
+    });
+  }
 
   // Center the landing title and inputs vertically
   function centerLanding() {
@@ -105,7 +135,7 @@ $(document).ready(function() {
   $("#register-full").click(function(event) {
     
     var username = $("#username").val();
-    var password = $("#password").val();
+    var password = $("#first-password").val();
     var repeat = $("#repeat-password").val(); 
     var firstname = $("#first-name").val();
     var lastname = $("#last-name").val();
@@ -164,8 +194,8 @@ $(document).ready(function() {
         console.log(error);
       }
     });
-    
-  }
+
+  };
 
   function newRant() {
     
@@ -178,13 +208,13 @@ $(document).ready(function() {
       "contentType": "application/json",
       "data": JSON.stringify(data),
       "success": function(data, state, jqxhr) {
-        window.location.reload();
+        window.location.pathname = "/";
       },
       "error": function(jqxhr, state, error) {
         console.log(error);
       }
     });
 
-  }
+  };
   
 });
