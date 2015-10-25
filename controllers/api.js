@@ -50,8 +50,13 @@ module.exports = function(router, sessionManager, dbModels) {
     
     new dbModels.User(newUser).save();
     
-    response.end();
-
+    sessionManager.addSession(newUser, function(sid) {
+      response.cookie("sid", sid, {
+        "maxAge": 10 * 60 * 60 * 24
+      });
+      response.end(JSON.stringify({ "success": true }));
+    });
+    
   });
   
   router.post("/login", function(request, response) {
@@ -99,6 +104,7 @@ module.exports = function(router, sessionManager, dbModels) {
         "user": username,
         "content": rant,
         "downvotes": 0,
+        "downvoters": [],
         "time": createdTime
       };
       

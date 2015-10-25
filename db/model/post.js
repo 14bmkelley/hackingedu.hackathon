@@ -6,11 +6,13 @@ module.exports = function(Schema) {
     "user": String,
     "content": String,
     "downvotes": Number,
+    "downvoters": [String],
     "time": Number
   });
   
-  postSchema.statics.getPost = function(id, callback) {
-    return this.findOne({
+  postSchema.statics.get = function(id, callback) {
+    
+    this.findOne({
       "_id": id
     }).exec(function(error, data) {
       if (error) {
@@ -20,6 +22,7 @@ module.exports = function(Schema) {
         callback(data);
       }
     });
+    
   }
 
   postSchema.statics.getMostRecent = function(callback) {
@@ -37,7 +40,7 @@ module.exports = function(Schema) {
         callback(data);
       }
     });
-
+    
   }
   
   return postSchema;

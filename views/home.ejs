@@ -58,10 +58,10 @@
             <div class="vertical-space-15"></div>
             <% if (posts.length !== 0) { %>
               <% for (var i = 0; i < posts.length; i++) { %>
-                <div class="post">
-                  <div class="row">
+                <div class="post no-select">
+                  <div class="row no-select">
                     <hr/>
-                    <div class="col-sm-6 col-xs-12">
+                    <div class="col-sm-6 col-xs-12 no-select">
                       <h3><%= posts[i].content %></h3>
                       <p>Posted by <%= posts[i].user %></p>
                     </div>

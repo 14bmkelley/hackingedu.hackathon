@@ -45,8 +45,10 @@ var SessionManager = function() {
     for (var i = 0; i < sessions.length; i++) {
       var found = false;
       for (var j = i + 1; j < sessions.length; j++) {
-        if (sessions[i].user.username === sessions[j].user.username) {
-          found = true;
+        if (sessions[i].user !== null) {
+          if (sessions[i].user.username === sessions[j].user.username) {
+            found = true;
+          }
         }
       }
       if (!found) {
