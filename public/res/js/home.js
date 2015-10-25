@@ -18,7 +18,7 @@ $(document).ready(function() {
   });
 
   // Login when enter is pressed in the password input
-  $("input[type='password']").keypress(function(keyEvent) {
+  $("input").last().keypress(function(keyEvent) {
     if (keyEvent.keyCode === 13) {
       login();
     }
@@ -29,6 +29,16 @@ $(document).ready(function() {
     if (keyEvent.keyCode === 13) {
       $("input[type='password']").focus();
     }
+  });
+
+  $("#newrant").keypress(function(keyEvent) {
+    if (keyEvent.keyCode === 13) {
+      newRant();
+    }
+  });
+
+  $("#newrantsubmit").click(function(event) {
+    newRant();
   });
 
   // Center the landing title and inputs vertically
@@ -155,6 +165,26 @@ $(document).ready(function() {
       }
     });
     
+  }
+
+  function newRant() {
+    
+    var data = {
+      "rant": $("#newrant").val()
+    };
+
+    $.ajax("/new_rant", {
+      "method": "POST",
+      "contentType": "application/json",
+      "data": JSON.stringify(data),
+      "success": function(data, state, jqxhr) {
+        window.location.reload();
+      },
+      "error": function(jqxhr, state, error) {
+        console.log(error);
+      }
+    });
+
   }
   
 });

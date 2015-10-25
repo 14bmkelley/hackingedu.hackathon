@@ -23,9 +23,10 @@ module.exports = function(Schema) {
   }
 
   postSchema.statics.getMostRecent = function(callback) {
+    /*
     var twoWeeksAgo = time.now() - 60 * 60 * 24 * 14;
     this.find({
-      "time": { $gt: aWeekAgo }
+      "time": { $gt: twoWeeksAgo }
     }).sort({ "time": -1 })
     .exec(function(error, data) {
       if (error) {
@@ -35,7 +36,18 @@ module.exports = function(Schema) {
         callback(data);
       }
     });
-  });
+    */
+    this.find()
+      .sort({ "time": -1 })
+      .exec(function(error, data) {
+        if (error) {
+          console.log(error);
+          callback(null);
+        } else {
+          callback(data);
+        }
+      });
+  }
   
   return postSchema;
   

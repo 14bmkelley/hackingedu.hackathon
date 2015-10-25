@@ -6,7 +6,7 @@ var SessionManager = function() {
   var sessions = [];
   
   // Add a session
-  this.addSession = function(user) {
+  this.addSession = function(user, callback) {
    
     // Create session
     var session = {
@@ -17,12 +17,13 @@ var SessionManager = function() {
     // Add session and clean up
     sessions.push(session);
     this.cleanSessions();
-    return session.sid;
+    callback(session.sid);
     
   };
 
   // Authenticate a session
   this.authenticateSession = function(sid, callback) {
+    
     // If a session is found, then it can be authenticated
     for (var i = 0; i < sessions.length; i++) {
       if (sessions[i].sid === sid) {
@@ -40,7 +41,7 @@ var SessionManager = function() {
   this.cleanSessions = function() {
     
     var newSessions = [];
-
+    console.log(sessions);
     for (var i = 0; i < sessions.length; i++) {
       var found = false;
       for (var j = i + 1; j < sessions.length; j++) {
@@ -49,7 +50,10 @@ var SessionManager = function() {
         }
       }
       if (!found) {
-        newSessions.push(sessions[i]);
+        newSessions.push({
+          "user": sessions[i].user,
+          "sid": sessions[i].sid
+        });
       }
     }
 

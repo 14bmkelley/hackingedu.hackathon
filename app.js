@@ -20,10 +20,13 @@ app.use(cookieParser());
 // Database settings
 mongoose.connect("mongodb://localhost/saltyrant");
 var userModelLocation = __dirname + "/db/model/user";
+var postModelLocation = __dirname + "/db/model/post";
 var userSchema = require(userModelLocation)(mongoose.Schema);
+var postSchema = require(postModelLocation)(mongoose.Schema);
 
 var models = {
-  "User": mongoose.model("User", userSchema)
+  "User": mongoose.model("User", userSchema),
+  "Post": mongoose.model("Post", postSchema)
 };
 
 // Route known urls

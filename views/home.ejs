@@ -33,20 +33,39 @@
         </div>
       </div>
       <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-        <button id="register-full" type="button" class="btn btn-success">Register</button>
-      <div>
-
+        <div class="col-md-6 col-md-offset-3 col-xs-8 col-xs-offset-2">
+          <div class="btn-group btn-group-justified">
+            <div class="btn-group">
+              <div class="vertical-space-10"></div>
+              <button id="register-full" type="button" class="btn btn-success">Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
     <% } else { %>
       <div class="container">
         <div id="content">
           <h1 class="text-center">News Feed</h1>
-          <% if (posts !== null) { %>
-            <% for (var i = 0; i < posts.length; i++) { %>
-              <hr/>
-              <h4><%= posts[i].content %></h4>
-              <p>Posted by <%= posts[i].user %></p>
+          <div class="vertical-space-15"></div>
+          <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+            <div class="input-group">
+              <input id="newrant" type="text" class="form-control" placeholder="Rant to the world."/>
+              <span class="input-group-btn">
+                <button id="newrantsubmit" class="btn btn-success" type="button">Submit</button>
+              </span>
+            </div>
+            <div class="vertical-space-15"></div>
+            <% if (posts.length !== 0) { %>
+              <% for (var i = 0; i < posts.length; i++) { %>
+                <hr/>
+                <h4><%= posts[i].content %></h4>
+                <p>Posted by <%= posts[i].user %></p>
+              <% } %>
+            <% } else { %>
+              <p>You have no recent rants to view.</p>
             <% } %>
-          <% } %>
+          </div>
         </div>
       </div>
       

@@ -1,5 +1,7 @@
 module.exports = function(router, sessionManager, dbModels) {
   
+  var time = require("unix-timestamp");
+
   router.post("/register", function(request, response) {
     
     if (!request.body.firstname && !request.body.lastname) {
@@ -46,11 +48,7 @@ module.exports = function(router, sessionManager, dbModels) {
       "posts": posts
     };
     
-    new dbModels.User(newUser).save(function(error) {
-      if (error) {
-        console.log(error);
-      }
-    });
+    new dbModels.User(newUser).save();
     
     response.end();
     
@@ -76,9 +74,10 @@ module.exports = function(router, sessionManager, dbModels) {
       
       // Check session and set cookie
       if (user !== undefined) {
-        var sid = sessionManager.addSession(user);
-        response.cookie("sid", sid, { maxAge: 10 * 60 * 60 * 24 });
-        response.end(JSON.stringify({ "success": true }));
+        sessionManager.addSession(user, function(sid) {
+          response.cookie("sid", sid, { maxAge: 10 * 60 * 60 * 24 });
+          response.end(JSON.stringify({ "success": true }));
+        });
       }
       
       response.end(JSON.stringify({ "success": false }));
@@ -87,6 +86,29 @@ module.exports = function(router, sessionManager, dbModels) {
 
   });
   
+  router.post("/new_rant", function(request, response) {
+    
+    var rant = request.body.rant;
+    
+    sessionManager.authenticateSession(request.cookies["sid"], function(user) {
+      
+      var userId = user._id;
+      var createdTime = time.now();
+      
+      var newPost = {
+        "user": userId,
+        "content": rant,
+        "downvotes": 0,
+        "time": createdTime
+      };
+      
+      new dbModels.Post(newPost).save();
+      response.end();
+      
+    });
+
+  });
+
   router.get("/logout", function(request, response) {
     
   });
